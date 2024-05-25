@@ -10,4 +10,8 @@ const routes: Routes = [
   { path: 'orders', component: ManageOrdersComponent }
 ];
 
-export const AdminRoutingModule = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class AdminRoutingModule {}
