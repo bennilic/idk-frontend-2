@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';  // Import only RouterModule here
 
 @Component({
   selector: 'app-root',
+  template: `<router-outlet></router-outlet>`,
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [RouterModule]  // Correctly import RouterModule without .forRoot()
 })
 export class AppComponent {
-  title = 'idk-frontend-2';
+  title = 'idkfrontend2';
 }
