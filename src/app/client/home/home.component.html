@@ -1,7 +1,17 @@
 <p>home works!</p>
 <div class="button-container">
-  <button class="nav-button" routerLink="/cart">Go to Shopping Cart</button>
-  <button class="nav-button" routerLink="/checkout">Go to Checkout</button>
-  <button class="nav-button" routerLink="/order-confirmation">Go to Order Confirmation</button>
+  <div class="shopping-cart-hover">
+    <button class="nav-button" routerLink="/cart">Shopping Cart</button>
+    <div class="hover-content">
+      <ul>
+        <!-- Placeholder for cart items -->
+        <li>Item 1 - Quantity: 2</li>
+        <li>Item 2 - Quantity: 1</li>
+      </ul>
+      <button class="checkout-button" routerLink="/checkout">Go to Checkout</button>
+    </div>
+  </div>
 </div>
+
+
 
