@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-order-confirmation',
   standalone: true,
-  imports: [RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './order-confirmation.component.html',
-  styleUrl: './order-confirmation.component.css'
+  styleUrls: ['./order-confirmation.component.css']
 })
-export class OrderConfirmationComponent {
-
-}
+export class OrderConfirmationComponent { }

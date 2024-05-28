@@ -1,18 +1,13 @@
-import { enableProdMode } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { clientRoutes } from './app/client.routes';
-import { RouterModule } from '@angular/router';
-import { environment } from './environments/environment';
+import { Route } from '@angular/router';
+import { HomeComponent } from './client/home/home.component';
+import { ShoppingCartComponent } from './client/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './client/checkout/checkout.component';
+import { OrderConfirmationComponent } from './client/order-confirmation/order-confirmation.component';
 
-if (environment.production) {
-  enableProdMode();
-}
-
-bootstrapApplication(AppComponent, {
-  providers: [
-    importProvidersFrom(
-      RouterModule.forRoot(clientRoutes)
-    )
-  ]
-}).catch(err => console.error(err));
+export const clientRoutes: Route[] = [
+  { path: '', component: HomeComponent },
+  { path: 'cart', component: ShoppingCartComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'order-confirmation', component: OrderConfirmationComponent },
+  { path: '**', redirectTo: '' } // Redirect any unknown paths to the home page
+];
