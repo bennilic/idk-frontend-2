@@ -5,9 +5,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [RouterModule],
-  templateUrl: './app.component.html',
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'idk-frontend-2';
-}
+export class AppComponent { }
