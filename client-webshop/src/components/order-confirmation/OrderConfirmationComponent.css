@@ -1,17 +1,26 @@
 .order-confirmation-container {
-  max-width: 400px;
-  margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-width: 600px;
+  margin: 0 auto;
   text-align: center;
 }
 
-.order-confirmation-container h2 {
-  margin-bottom: 20px;
+.go-back-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-.order-confirmation-container p {
-  font-size: 18px;
+.go-back-button:hover {
+  background-color: #45a049;
 }

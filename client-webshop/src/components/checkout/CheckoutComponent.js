@@ -15,6 +15,10 @@ function CheckoutComponent() {
     navigate('/order-confirmation');
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="checkout-container">
       <h2>Checkout</h2>
@@ -41,6 +45,7 @@ function CheckoutComponent() {
         </div>
         <button type="submit" className="checkout-button">Submit</button>
       </form>
+      <button onClick={goBack} className="go-back-button">Go Back</button>
     </div>
   );
 }

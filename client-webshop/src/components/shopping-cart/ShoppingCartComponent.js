@@ -14,6 +14,10 @@ function ShoppingCartComponent() {
     navigate('/checkout');
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="shopping-cart-container">
       <h2>Shopping Cart</h2>
@@ -26,6 +30,9 @@ function ShoppingCartComponent() {
       </ul>
       <button onClick={handleCheckoutButtonClick} className="checkout-button">
         Go to Checkout
+      </button>
+      <button onClick={goBack} className="go-back-button">
+        Go Back
       </button>
     </div>
   );

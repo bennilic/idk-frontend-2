@@ -7,7 +7,7 @@ function HomeComponent() {
   return (
     <div>
       <h1>Home</h1>
-      <p>Welcome to the home page!</p>
+      <p>Welcome to the client webshop!</p>
       <ShoppingCartButton />
       <ProductListComponent />
     </div>
