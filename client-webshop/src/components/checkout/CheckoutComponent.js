@@ -10,10 +10,33 @@ function CheckoutComponent() {
   const [postalCode, setPostalCode] = useState('');
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    let errorMessage = '';
+
+    if (!name) errorMessage = 'Name is required.';
+    else if (!email) errorMessage = 'Email is required.';
+    else if (!validateEmail(email)) errorMessage = 'Please enter a valid email address.';
+    else if (!street) errorMessage = 'Street is required.';
+    else if (!houseNumber) errorMessage = 'House number is required.';
+    else if (!postalCode) errorMessage = 'Postal code is required.';
+    else if (!city) errorMessage = 'City is required.';
+    else if (!country) errorMessage = 'Country is required.';
+
+    if (errorMessage) {
+      setError(errorMessage);
+      return;
+    }
+
+    // Handle form submission
     console.log('Name:', name);
     console.log('Email:', email);
     console.log('Street:', street);
@@ -28,8 +51,23 @@ function CheckoutComponent() {
     navigate(-1);
   };
 
+  const closeError = () => {
+    setError('');
+  };
+
   return (
     <div className="container">
+      {error && (
+        <div className="error-popup">
+          <div className="error-popup-content">
+            <button className="error-close" onClick={closeError}>×</button>
+            <div className="error-icon">⚠️</div>
+            <h2>Ooops!</h2>
+            <p>{error}</p>
+            <button className="error-button" onClick={closeError}>Try Again</button>
+          </div>
+        </div>
+      )}
       <h2>Checkout</h2>
       <form onSubmit={handleSubmit}>
         <div className="grid">
@@ -39,7 +77,6 @@ function CheckoutComponent() {
             id="name" 
             value={name} 
             onChange={(e) => setName(e.target.value)} 
-            required 
           />
         </div>
         <div className="grid">
@@ -49,7 +86,6 @@ function CheckoutComponent() {
             id="email" 
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
-            required 
           />
         </div>
         <div className="grid">
@@ -59,7 +95,6 @@ function CheckoutComponent() {
             id="street" 
             value={street} 
             onChange={(e) => setStreet(e.target.value)} 
-            required 
           />
         </div>
         <div className="grid">
@@ -69,7 +104,6 @@ function CheckoutComponent() {
             id="houseNumber" 
             value={houseNumber} 
             onChange={(e) => setHouseNumber(e.target.value)} 
-            required 
           />
         </div>
         <div className="grid">
@@ -79,7 +113,6 @@ function CheckoutComponent() {
             id="postalCode" 
             value={postalCode} 
             onChange={(e) => setPostalCode(e.target.value)} 
-            required 
           />
         </div>
         <div className="grid">
@@ -89,7 +122,6 @@ function CheckoutComponent() {
             id="city" 
             value={city} 
             onChange={(e) => setCity(e.target.value)} 
-            required 
           />
         </div>
         <div className="grid">
@@ -99,7 +131,6 @@ function CheckoutComponent() {
             id="country" 
             value={country} 
             onChange={(e) => setCountry(e.target.value)} 
-            required 
           />
         </div>
         <button type="submit">Submit</button>

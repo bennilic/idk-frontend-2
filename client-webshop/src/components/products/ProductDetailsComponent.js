@@ -19,7 +19,7 @@ function ProductDetailsComponent() {
     <div className="container">
       <h2>{product.name}</h2>
       <div className="grid">
-        <img src={`path_to_images/${product.id}.jpg`} alt={product.name} className="product-image" />
+        <img src={`https://dummyjson.com/image/i/products/${productId}/thumbnail.jpg`} alt={product.name} className="product-image" />
         <div>
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>

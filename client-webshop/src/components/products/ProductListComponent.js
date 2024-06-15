@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getProducts } from '../../services/productService';
+import { fetchProducts } from '../../services/apiService';
 import './ProductListComponent.css';
 
 const PRODUCTS_PER_PAGE = 9;
@@ -8,47 +7,59 @@ const PRODUCTS_PER_PAGE = 9;
 function ProductListComponent() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getProducts().then(data => setProducts(data));
+    fetchProducts()
+      .then(data => {
+        setProducts(data.products);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+        setError(error);
+        setLoading(false);
+      });
   }, []);
 
-  const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+  const indexOfLastProduct = currentPage * PRODUCTS_PER_PAGE;
+  const indexOfFirstProduct = indexOfLastProduct - PRODUCTS_PER_PAGE;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const handleClick = (page) => {
-    setCurrentPage(page);
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const paginatedProducts = products.slice(
-    (currentPage - 1) * PRODUCTS_PER_PAGE,
-    currentPage * PRODUCTS_PER_PAGE
-  );
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching products: {error.message}</div>;
+  }
 
   return (
-    <div className="product-list-container">
-      <div className="product-list">
-        {paginatedProducts.map(product => (
-          <article key={product.id} className="product-item">
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
+    <div>
+      <div className="product-grid">
+        {currentProducts.map(product => (
+          <div key={product.id} className="card">
+            <h3>{product.title}</h3>
+            <p className="product-description">{product.description}</p>
             <p>Price: ${product.price}</p>
-            <Link to={`/product/${product.id}`} className="button">
-              View Details
-            </Link>
-          </article>
+            <button onClick={() => window.location.href = `/product/${product.id}`}>View Details</button>
+          </div>
         ))}
       </div>
-      <div className="pagination">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handleClick(index + 1)}
-            className={currentPage === index + 1 ? 'active' : ''}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+      <nav>
+        <ul className="pagination">
+          {[...Array(Math.ceil(products.length / PRODUCTS_PER_PAGE)).keys()].map(number => (
+            <li key={number + 1} className="page-item">
+              <button onClick={() => paginate(number + 1)} className="page-link">
+                {number + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }
