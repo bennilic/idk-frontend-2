@@ -1,60 +1,52 @@
 .shopping-cart-container {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .shopping-cart-button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .shopping-cart-button:hover {
-    background-color: #45a049;
-  }
-  
-  .shopping-cart-dropdown {
-    display: block;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    top: 40px; /* Adjust as needed */
-  }
-  
-  .shopping-cart-dropdown ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .shopping-cart-dropdown ul li {
-    padding: 8px 0;
-  }
-  
-  .checkout-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .checkout-button:hover {
-    background-color: #45a049;
-  }
+  position: relative;
+  display: inline-block;
+}
+
+.shopping-cart-button {
+  background-color: var(--primary);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+
+.shopping-cart-dropdown {
+  display: block;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  top: 40px;
+}
+
+.shopping-cart-dropdown ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shopping-cart-dropdown ul li {
+  padding: 0.5rem 0;
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--primary);
+  color: rgb(15, 123, 224);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: var(--primary-dark);
+}

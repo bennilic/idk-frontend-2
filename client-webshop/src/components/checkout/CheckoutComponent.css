@@ -1,40 +1,24 @@
-.checkout-container {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  max-width: 600px;
-  margin: 0 auto;
+.container {
+  padding: var(--spacing);
+  max-width: 800px;
+  margin: var(--spacing) auto;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.grid {
+  display: grid;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
+button {
+  background-color: var(--primary);
+  border: none;
+  color: white;
+  padding: var(--spacing-half) var(--spacing);
+  cursor: pointer;
+  border-radius: var(--radius);
 }
 
-input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+button:hover {
+  background-color: var(--primary-dark);
 }
-  
-  .checkout-button, .go-back-button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 0;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .checkout-button:hover, .go-back-button:hover {
-    background-color: #45a049;
-  }

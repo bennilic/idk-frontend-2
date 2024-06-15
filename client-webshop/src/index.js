@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import '@picocss/pico/css/pico.min.css'; // Import PicoCSS
 
 ReactDOM.render(
   <React.StrictMode>
