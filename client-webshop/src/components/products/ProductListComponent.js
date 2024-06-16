@@ -1,65 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchProducts } from '../../services/apiService';
+import { CartContext } from '../../contexts/CartContext';
 import './ProductListComponent.css';
-
-const PRODUCTS_PER_PAGE = 9;
 
 function ProductListComponent() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const itemsPerPage = 9;
+  const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetchProducts()
+    fetchProducts(currentPage, itemsPerPage)
       .then(data => {
-        setProducts(data.products);
-        setLoading(false);
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else {
+          console.error('Fetched data is not an array:', data);
+        }
       })
-      .catch(error => {
-        console.error('Error fetching products:', error);
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
+      .catch(error => console.error('Error fetching products:', error));
+  }, [currentPage]);
 
-  const indexOfLastProduct = currentPage * PRODUCTS_PER_PAGE;
-  const indexOfFirstProduct = indexOfLastProduct - PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const handleViewDetails = (id) => {
+    navigate(`/product/${id}`);
+  };
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const handleAddToCart = (product, quantity) => {
+    addToCart({ ...product, quantity });
+  };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-  if (error) {
-    return <div>Error fetching products: {error.message}</div>;
-  }
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
 
   return (
     <div>
       <div className="product-grid">
-        {currentProducts.map(product => (
+        {paginatedProducts.map(product => (
           <div key={product.id} className="card">
+            <img src={product.thumbnail} alt={product.title} />
             <h3>{product.title}</h3>
             <p className="product-description">{product.description}</p>
             <p>Price: ${product.price}</p>
-            <button onClick={() => window.location.href = `/product/${product.id}`}>View Details</button>
+            <button onClick={() => handleViewDetails(product.id)}>View Details</button>
+            <button onClick={() => handleAddToCart(product, 1)}>Add to Cart</button>
           </div>
         ))}
       </div>
-      <nav>
-        <ul className="pagination">
-          {[...Array(Math.ceil(products.length / PRODUCTS_PER_PAGE)).keys()].map(number => (
-            <li key={number + 1} className="page-item">
-              <button onClick={() => paginate(number + 1)} className="page-link">
-                {number + 1}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            className={index + 1 === currentPage ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

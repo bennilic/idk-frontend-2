@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../contexts/CartContext';
 import './ShoppingCartButton.css';
-
-const MOCK_CART_PRODUCTS = [
-  { id: 1, name: 'Product 1', quantity: 2 },
-  { id: 2, name: 'Product 2', quantity: 1 },
-];
 
 function ShoppingCartButton() {
   const navigate = useNavigate();
+  const { cartItems, removeFromCart } = useContext(CartContext);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleButtonClick = () => {
@@ -17,6 +14,10 @@ function ShoppingCartButton() {
 
   const handleCheckoutButtonClick = () => {
     navigate('/checkout');
+  };
+
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`);
   };
 
   return (
@@ -31,9 +32,23 @@ function ShoppingCartButton() {
       {isHovered && (
         <div className="shopping-cart-dropdown">
           <ul>
-            {MOCK_CART_PRODUCTS.map(product => (
-              <li key={product.id}>
-                {product.name} (x{product.quantity})
+            {cartItems.map(product => (
+              <li key={product.id} className="cart-product-item">
+                <img 
+                  src={product.thumbnail} 
+                  alt={product.title} 
+                  className="cart-product-image" 
+                  onClick={() => handleProductClick(product.id)} 
+                />
+                <div className="cart-product-details" onClick={() => handleProductClick(product.id)}>
+                  {product.title} (x{product.quantity})
+                </div>
+                <button 
+                  className="remove-button" 
+                  onClick={() => removeFromCart(product.id)}
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>

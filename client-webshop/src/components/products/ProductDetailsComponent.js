@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProduct } from '../../services/productService';
+import { fetchProductById } from '../../services/apiService';
+import { CartContext } from '../../contexts/CartContext';
 import './ProductDetailsComponent.css';
 
 function ProductDetailsComponent() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const { addToCart } = useContext(CartContext);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    getProduct(parseInt(productId)).then(setProduct);
+    fetchProductById(productId).then(setProduct).catch(error => console.error(error));
   }, [productId]);
+
+  const handleAddToCart = () => {
+    addToCart({ ...product, quantity });
+  };
 
   if (!product) {
     return <div>Loading...</div>;
@@ -17,13 +24,19 @@ function ProductDetailsComponent() {
 
   return (
     <div className="container">
-      <h2>{product.name}</h2>
+      <h2>{product.title}</h2>
       <div className="grid">
-        <img src={`https://dummyjson.com/image/i/products/${productId}/thumbnail.jpg`} alt={product.name} className="product-image" />
+        <img src={product.thumbnail} alt={product.title} className="product-image" />
         <div>
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
-          <button className="button">Add to Cart</button>
+          <input 
+            type="number" 
+            value={quantity} 
+            onChange={(e) => setQuantity(parseInt(e.target.value))} 
+            min="1" 
+          />
+          <button className="primary" onClick={handleAddToCart}>Add to Cart</button>
         </div>
       </div>
     </div>
