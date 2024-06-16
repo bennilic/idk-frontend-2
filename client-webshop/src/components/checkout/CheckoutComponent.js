@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../contexts/CartContext';
+import { createOrder } from '../../services/apiService';
 import './CheckoutComponent.css';
 
 function CheckoutComponent() {
-  const [name, setName] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
-  const [street, setStreet] = useState('');
-  const [houseNumber, setHouseNumber] = useState('');
-  const [postalCode, setPostalCode] = useState('');
+  const [streetNumber, setStreetNumber] = useState('');
   const [city, setCity] = useState('');
+  const [zipCode, setZipCode] = useState('');
   const [country, setCountry] = useState('');
   const [error, setError] = useState('');
+  const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -18,17 +21,17 @@ function CheckoutComponent() {
     return re.test(email);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let errorMessage = '';
 
-    if (!name) errorMessage = 'Name is required.';
+    if (!firstname) errorMessage = 'First name is required.';
+    else if (!lastname) errorMessage = 'Last name is required.';
     else if (!email) errorMessage = 'Email is required.';
     else if (!validateEmail(email)) errorMessage = 'Please enter a valid email address.';
-    else if (!street) errorMessage = 'Street is required.';
-    else if (!houseNumber) errorMessage = 'House number is required.';
-    else if (!postalCode) errorMessage = 'Postal code is required.';
+    else if (!streetNumber) errorMessage = 'Street and Number is required.';
     else if (!city) errorMessage = 'City is required.';
+    else if (!zipCode) errorMessage = 'ZIP Code is required.';
     else if (!country) errorMessage = 'Country is required.';
 
     if (errorMessage) {
@@ -36,15 +39,26 @@ function CheckoutComponent() {
       return;
     }
 
-    // Handle form submission
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Street:', street);
-    console.log('House Number:', houseNumber);
-    console.log('Postal Code:', postalCode);
-    console.log('City:', city);
-    console.log('Country:', country);
-    navigate('/order-confirmation');
+    const orderData = {
+      firstname,
+      lastname,
+      email,
+      streetNumber,
+      city,
+      zipCode,
+      country,
+      products: cartItems.map(item => ({
+        productId: item.id,
+        count: item.quantity,
+      })),
+    };
+
+    try {
+      await createOrder(orderData);
+      navigate('/order-confirmation');
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const goBack = () => {
@@ -71,12 +85,21 @@ function CheckoutComponent() {
       <h2>Checkout</h2>
       <form onSubmit={handleSubmit}>
         <div className="grid">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="firstname">First Name</label>
           <input 
             type="text" 
-            id="name" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
+            id="firstname" 
+            value={firstname} 
+            onChange={(e) => setFirstname(e.target.value)} 
+          />
+        </div>
+        <div className="grid">
+          <label htmlFor="lastname">Last Name</label>
+          <input 
+            type="text" 
+            id="lastname" 
+            value={lastname} 
+            onChange={(e) => setLastname(e.target.value)} 
           />
         </div>
         <div className="grid">
@@ -89,30 +112,12 @@ function CheckoutComponent() {
           />
         </div>
         <div className="grid">
-          <label htmlFor="street">Street</label>
+          <label htmlFor="streetNumber">Street and Number</label>
           <input 
             type="text" 
-            id="street" 
-            value={street} 
-            onChange={(e) => setStreet(e.target.value)} 
-          />
-        </div>
-        <div className="grid">
-          <label htmlFor="houseNumber">House Number</label>
-          <input 
-            type="text" 
-            id="houseNumber" 
-            value={houseNumber} 
-            onChange={(e) => setHouseNumber(e.target.value)} 
-          />
-        </div>
-        <div className="grid">
-          <label htmlFor="postalCode">Postal Code</label>
-          <input 
-            type="text" 
-            id="postalCode" 
-            value={postalCode} 
-            onChange={(e) => setPostalCode(e.target.value)} 
+            id="streetNumber" 
+            value={streetNumber} 
+            onChange={(e) => setStreetNumber(e.target.value)} 
           />
         </div>
         <div className="grid">
@@ -125,6 +130,15 @@ function CheckoutComponent() {
           />
         </div>
         <div className="grid">
+          <label htmlFor="zipCode">ZIP Code</label>
+          <input 
+            type="text" 
+            id="zipCode" 
+            value={zipCode} 
+            onChange={(e) => setZipCode(e.target.value)} 
+          />
+        </div>
+        <div className="grid">
           <label htmlFor="country">Country</label>
           <input 
             type="text" 
@@ -133,9 +147,9 @@ function CheckoutComponent() {
             onChange={(e) => setCountry(e.target.value)} 
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="primary">Submit</button>
       </form>
-      <button onClick={goBack}>Go Back</button>
+      <button onClick={goBack} className="secondary">Go Back</button>
     </div>
   );
 }

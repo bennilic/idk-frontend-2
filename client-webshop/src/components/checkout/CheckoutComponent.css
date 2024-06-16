@@ -40,7 +40,7 @@ button:hover {
   background-color: #333;
   color: white;
   padding: var(--spacing);
-  border-radius: 12px; 
+  border-radius: 12px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   max-height: 400px; 

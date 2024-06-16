@@ -1,34 +1,26 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchProducts } from '../../services/apiService';
+import { fetchProducts } from '../../services/apiService'; // Ensure this is correct
 import { CartContext } from '../../contexts/CartContext';
 import './ProductListComponent.css';
 
 function ProductListComponent() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
+  const itemsPerPage = 9; // Show 9 items per page
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetchProducts(currentPage, itemsPerPage)
-      .then(data => {
-        if (Array.isArray(data)) {
-          setProducts(data);
-        } else {
-          console.error('Fetched data is not an array:', data);
-        }
-      })
-      .catch(error => console.error('Error fetching products:', error));
-  }, [currentPage]);
+    fetchProducts().then(data => setProducts(data)).catch(error => console.error(error));
+  }, []);
 
   const handleViewDetails = (id) => {
     navigate(`/product/${id}`);
   };
 
-  const handleAddToCart = (product, quantity) => {
-    addToCart({ ...product, quantity });
+  const handleAddToCart = (product) => {
+    addToCart(product);
   };
 
   const handlePageChange = (pageNumber) => {
@@ -52,7 +44,7 @@ function ProductListComponent() {
             <p className="product-description">{product.description}</p>
             <p>Price: ${product.price}</p>
             <button onClick={() => handleViewDetails(product.id)}>View Details</button>
-            <button onClick={() => handleAddToCart(product, 1)}>Add to Cart</button>
+            <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
           </div>
         ))}
       </div>
