@@ -39,9 +39,10 @@ function ProductListComponent() {
       <div className="product-grid">
         {paginatedProducts.map(product => (
           <div key={product.id} className="card">
-            <img src={product.thumbnail} alt={product.title} />
+            <img src={product.images[0]} alt={product.title} />
             <h3>{product.title}</h3>
             <p className="product-description">{product.description}</p>
+            <p className="product-description">{product.aiDescription}</p>
             <p>Price: ${product.price}</p>
             <button onClick={() => handleViewDetails(product.id)}>View Details</button>
             <button onClick={() => handleAddToCart(product)}>Add to Cart</button>

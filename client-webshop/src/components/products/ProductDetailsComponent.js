@@ -27,9 +27,12 @@ function ProductDetailsComponent() {
     <div className="container">
       <h2>{product.title}</h2>
       <div className="grid">
-        <img src={product.thumbnail} alt={product.title} className="product-image" />
+        <img src={product.images[0]} alt={product.title} className="product-image" />
         <div>
+          <h4>Description:</h4>
           <p>{product.description}</p>
+          <h4>AI Description:</h4>
+          <p>{product.aiDescription}</p>
           <p>Price: ${product.price}</p>
           <div>
             <label>Quantity:</label>
@@ -45,7 +48,7 @@ function ProductDetailsComponent() {
           ))}
         </div>
       </div>
-  
+
   );
 }
 
