@@ -8,13 +8,13 @@ const getApiUrl = (endpoint) => {
   return `${baseUrl}${endpoint}`;
 };
 
-export const fetchProducts = async () => {
-  const response = await fetch(getApiUrl('/products?page=1&amount=100000'));
+export const fetchProducts = async (page, amountPerPage) => {
+  const response = await fetch(`${getApiUrl(`/products?page=${page}&amount=${amountPerPage}`)}`);
   if (!response.ok) {
     throw new Error('Failed to fetch products');
   }
   const data = await response.json();
-  return data.products;
+  return data;
 };
 
 export const fetchProductById = async (id) => {
