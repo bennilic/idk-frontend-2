@@ -1,30 +1,40 @@
 .shopping-cart-container {
-  position: relative;
+  position: fixed;
+  top: 20px;
+  right: 20px;
   display: inline-block;
+  z-index: 1000;
 }
 
 .shopping-cart-button {
   background-color: var(--primary);
   border: none;
-  color: rgb(110, 143, 235);
+  color: white;
   padding: 0.5rem 1rem;
   text-align: center;
   display: inline-block;
   cursor: pointer;
   border-radius: var(--radius);
+  font-size: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shopping-cart-button:hover {
+  background-color: var(--primary-dark);
 }
 
 .shopping-cart-dropdown {
   display: block;
   position: absolute;
-  background-color: rgb(64, 63, 68);
+  background-color: var(--background);
   min-width: 400px;
   box-shadow: var(--shadow);
   padding: 1rem;
   z-index: 1;
-  border: 1px solid #605de2;
+  border: 1px solid var(--primary);
   border-radius: var(--radius);
-  top: 40px;
+  top: 60px;
+  right: 0;
 }
 
 .shopping-cart-dropdown ul {
@@ -38,7 +48,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #2e7cd6;
+  border-bottom: 1px solid var(--primary);
 }
 
 .cart-product-item:last-child {
@@ -49,7 +59,7 @@
   width: 50px;
   height: auto;
   margin-right: 10px;
-  border: 1px solid #307fda;
+  border: 1px solid var(--primary);
   border-radius: 5px;
   cursor: pointer;
 }
@@ -62,16 +72,23 @@
 
 .checkout-button {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
   background-color: var(--primary);
-  color: rgb(15, 123, 224);
+  color: white;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
 }
 
 .checkout-button:hover {
   background-color: var(--primary-dark);
+  transform: scale(1.05);
 }
 
 .remove-button {
@@ -85,4 +102,37 @@
 
 .remove-button:hover {
   background-color: darkred;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shopping-cart-container {
+    top: 10px;
+    right: 10px;
+  }
+
+  .shopping-cart-button {
+    padding: 0.25rem 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .shopping-cart-dropdown {
+    min-width: 300px;
+    top: 50px;
+  }
+
+  .cart-product-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-product-image {
+    width: 40px;
+    margin-bottom: 5px;
+  }
+
+  .checkout-button {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
 }

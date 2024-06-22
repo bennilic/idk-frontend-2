@@ -21,30 +21,30 @@ function ShoppingCartButton() {
   };
 
   return (
-    <div 
+    <div
       className="shopping-cart-container"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <button className="shopping-cart-button" onClick={handleButtonClick}>
-        Shopping Cart
+        🛒
       </button>
       {isHovered && (
         <div className="shopping-cart-dropdown">
           <ul>
             {cartItems.map(product => (
               <li key={product.id} className="cart-product-item">
-                <img 
-                  src={product.thumbnail} 
-                  alt={product.title} 
-                  className="cart-product-image" 
-                  onClick={() => handleProductClick(product.id)} 
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="cart-product-image"
+                  onClick={() => handleProductClick(product.id)}
                 />
                 <div className="cart-product-details" onClick={() => handleProductClick(product.id)}>
                   {product.title} (x{product.quantity})
                 </div>
-                <button 
-                  className="remove-button" 
+                <button
+                  className="remove-button"
                   onClick={() => removeFromCart(product.id)}
                 >
                   Remove

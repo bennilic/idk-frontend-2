@@ -6,8 +6,8 @@ import ProductListComponent from '../products/ProductListComponent';
 function HomeComponent() {
   return (
     <div>
-      <h1>Home</h1>
-      <p>Welcome to the home page!</p>
+      <h1>IDK</h1>
+      <p>Welcome to our shop!</p>
       <ShoppingCartButton />
       <ProductListComponent />
     </div>

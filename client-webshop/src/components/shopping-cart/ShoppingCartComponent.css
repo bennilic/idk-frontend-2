@@ -65,3 +65,47 @@
 .remove-button:hover {
   background-color: darkred;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cart-product-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-thumbnail {
+    width: 60px; /* Adjust the size as needed */
+    margin-bottom: 10px;
+  }
+
+  .product-details {
+    align-items: flex-start;
+  }
+
+  .primary, .secondary {
+    padding: 8px 16px;
+    margin: 5px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .remove-button {
+    width: 100%;
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .cart-thumbnail {
+    width: 50px; /* Adjust the size as needed */
+  }
+
+  .primary, .secondary, .remove-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
