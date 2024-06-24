@@ -58,7 +58,7 @@ function CheckoutComponent() {
       clearCart();
       navigate('/order-confirmation');
     } catch (error) {
-      setError(error.message);
+      setError(error.message || 'An error occurred');
     }
   };
 
