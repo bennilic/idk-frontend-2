@@ -13,7 +13,7 @@ function CheckoutComponent() {
   const [zipCode, setZipCode] = useState('');
   const [country, setCountry] = useState('');
   const [error, setError] = useState('');
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -29,7 +29,7 @@ function CheckoutComponent() {
     else if (!lastname) errorMessage = 'Last name is required.';
     else if (!email) errorMessage = 'Email is required.';
     else if (!validateEmail(email)) errorMessage = 'Please enter a valid email address.';
-    else if (!streetNumber) errorMessage = 'Street and Number is required.';
+    else if (!streetNumber) errorMessage = 'Street and Number are required.';
     else if (!city) errorMessage = 'City is required.';
     else if (!zipCode) errorMessage = 'ZIP Code is required.';
     else if (!country) errorMessage = 'Country is required.';
@@ -55,6 +55,7 @@ function CheckoutComponent() {
 
     try {
       await createOrder(orderData);
+      clearCart();
       navigate('/order-confirmation');
     } catch (error) {
       setError(error.message);
@@ -148,8 +149,8 @@ function CheckoutComponent() {
           />
         </div>
         <button type="submit" className="primary">Submit</button>
+        <button onClick={goBack} className="secondary">Go Back</button>
       </form>
-      <button onClick={goBack} className="secondary">Go Back</button>
     </div>
   );
 }

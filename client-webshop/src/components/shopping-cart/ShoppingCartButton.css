@@ -14,25 +14,25 @@
   text-align: center;
   display: inline-block;
   cursor: pointer;
-  border-radius: var(--radius);
+  border-radius: 10px;
   font-size: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .shopping-cart-button:hover {
-  background-color: var(--primary-dark);
+  background-color: rgb(25, 102, 153);
 }
 
 .shopping-cart-dropdown {
   display: block;
   position: absolute;
-  background-color: var(--background);
+  background-color: rgb(29, 31, 34);
   min-width: 400px;
   box-shadow: var(--shadow);
   padding: 1rem;
   z-index: 1;
   border: 1px solid var(--primary);
-  border-radius: var(--radius);
+  border-radius: 10px;
   top: 60px;
   right: 0;
 }
@@ -97,7 +97,7 @@
   border: none;
   padding: 5px 10px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .remove-button:hover {

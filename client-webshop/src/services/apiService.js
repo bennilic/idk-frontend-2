@@ -9,7 +9,7 @@ const getApiUrl = (endpoint) => {
 };
 
 export const fetchProducts = async (page, amountPerPage) => {
-  const response = await fetch(`${getApiUrl(`/products?page=${page}&amount=${amountPerPage}`)}`);
+  const response = await fetch(getApiUrl(`/products?page=${page}&amount=${amountPerPage}`));
   if (!response.ok) {
     throw new Error('Failed to fetch products');
   }
@@ -29,7 +29,7 @@ export const fetchProductById = async (id) => {
 export const createOrder = async (orderData) => {
   const response = await fetch(getApiUrl('/order'), {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(orderData)
   });
   if (!response.ok) {
