@@ -17,7 +17,7 @@ function CheckoutComponent() {
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const re = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
     return re.test(email);
   };
 
@@ -54,11 +54,11 @@ function CheckoutComponent() {
     };
 
     try {
-      await createOrder(orderData);
+      const order = await createOrder(orderData);
       clearCart();
-      navigate('/order-confirmation');
+      navigate('/order-confirmation', { state: { id: order.id, totalPrice: order.totalPrice } });
     } catch (error) {
-      setError(error.message || 'An error occurred');
+      setError(error.message);
     }
   };
 
@@ -149,8 +149,8 @@ function CheckoutComponent() {
           />
         </div>
         <button type="submit" className="primary">Submit</button>
-        <button onClick={goBack} className="secondary">Go Back</button>
       </form>
+      <button onClick={goBack} className="secondary">Go Back</button>
     </div>
   );
 }
