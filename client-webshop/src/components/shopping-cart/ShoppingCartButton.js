@@ -5,7 +5,7 @@ import './ShoppingCartButton.css';
 
 function ShoppingCartButton() {
   const navigate = useNavigate();
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, getTotalItems } = useContext(CartContext);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleButtonClick = () => {
@@ -27,7 +27,7 @@ function ShoppingCartButton() {
       onMouseLeave={() => setIsHovered(false)}
     >
       <button className="shopping-cart-button" onClick={handleButtonClick}>
-        🛒
+        🛒 <span className="cart-count">{getTotalItems()}</span>
       </button>
       {isHovered && (
         <div className="shopping-cart-dropdown">

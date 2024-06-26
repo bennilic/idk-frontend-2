@@ -17,10 +17,22 @@
   border-radius: 10px;
   font-size: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .shopping-cart-button:hover {
   background-color: rgb(25, 102, 153);
+}
+
+.cart-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.2rem 0.6rem;
+  font-size: 1rem;
+  position: absolute;
+  top: -10px;
+  right: -10px;
 }
 
 .shopping-cart-dropdown {
