@@ -41,9 +41,6 @@ function ProductDetailsComponent() {
             <img key={index} src={image} alt={`${product.title} ${index + 1}`} className="thumbnail" />
           ))}
         </div>
-        <div>
-          <img src={product.thumbnail} alt={product.title} className="product-image" />
-        </div>
         <div className="product-info">
           <h2>{product.title}</h2>
           <p className="price">${product.price}</p>

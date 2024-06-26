@@ -21,7 +21,7 @@ function ShoppingCartComponent() {
       <ul className="cart-product-list">
         {cartItems.map(product => (
           <li key={product.id} className="cart-product-item">
-            <img src={product.thumbnail} alt={product.title} className="cart-thumbnail" />
+            <img src={product.images[0]} alt={product.title} className="cart-thumbnail" />
             <div className="product-details">
               <h3>{product.title}</h3>
               <p>Price: ${product.price}</p>

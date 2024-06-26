@@ -23,7 +23,6 @@
 
 .thumbnail {
   width: 100%;
-  max-width: 100px;
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;

@@ -35,7 +35,7 @@ function ShoppingCartButton() {
             {cartItems.map(product => (
               <li key={product.id} className="cart-product-item">
                 <img
-                  src={product.thumbnail}
+                  src={product.images[0]}
                   alt={product.title}
                   className="cart-product-image"
                   onClick={() => handleProductClick(product.id)}
