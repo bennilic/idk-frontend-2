@@ -40,9 +40,6 @@ function ShoppingCartButton() {
                   className="cart-product-image"
                   onClick={() => handleProductClick(product.id)}
                 />
-                <div className="cart-product-details" onClick={() => handleProductClick(product.id)}>
-                  {product.title} (x{product.quantity})
-                </div>
                 <button
                   className="remove-button"
                   onClick={() => removeFromCart(product.id)}

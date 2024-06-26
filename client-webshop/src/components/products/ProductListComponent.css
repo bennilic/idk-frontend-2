@@ -50,7 +50,8 @@
   padding: 8px 12px; /* Adjusted padding */
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.85rem; /* Adjusted font size */
+  font-size: 0.85rem;
+  margin-left: 10px; /* Adjusted font size */
 }
 
 .card button:hover {
